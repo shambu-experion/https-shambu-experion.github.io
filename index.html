@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>En/De Crypt Credential</title>
+</head>
+<body>
+    <input type="hidden" disabled id="key" value="!A~:N~!B~:A~!C~:O~!D~:B~!E~:P~!F~:C~!G~:Q~!H~:D~!I~:R~!J~:E~!K~:S~!L~:F~!M~:T~!N~:G~!O~:U~!P~:H~!Q~:V~!R~:I~!S~:W~!T~:J~!U~:X~!V~:K~!W~:Y~!X~:L~!Y~:Z~!Z~:M~!a~:z~!b~:m~!c~:y~!d~:l~!e~:x~!f~:k~!g~:w~!h~:j~!i~:v~!j~:i~!k~:u~!l~:h~!m~:t~!n~:g~!o~:s~!p~:f~!q~:r~!r~:e~!s~:q~!t~:d~!u~:p~!v~:c~!w~:o~!x~:b~!y~:n~!@~:-~!#~:_~!$~:=~!.~:'~!0~:5~!1~:6~!2~:7~!3~:8~!4~:9~!5~:0~!6~:1~!7~:2~!8~:3~!9~:4" />
+    <p>
+        <input type="text" id="txtplainCred" />
+        <input type="text" disabled id="txtSafeCred" />
+        <input type="button" onClick="encClick()" value="Encrypt" />
+    </p>
+    <p>
+        <input type="text" id="inputSafeCred" />
+        <input type="text" disabled id="inputplainCred" />
+        <input type="button" onClick="decClick()" value="Decrypt" />
+    </p>
+    <script>
+        function encClick() {
+            var keyText = document.getElementById("key").value;
+            const key = keyText.split("~");
+            var plainCred = document.getElementById("txtplainCred").value;
+            var safeCred = '';
+            for (const char of plainCred) {
+                var plainIndex = key.indexOf("!" + char);
+                var safeChar = ''
+                if (plainIndex <= 0)
+                    safeChar = char;
+                else
+                    safeChar = key[plainIndex + 1].replace(':', '');
+                safeCred = safeCred + safeChar;
+            };
+            document.getElementById("txtSafeCred").value = safeCred;
+        };
+
+        function decClick() {
+            var keyText = document.getElementById("key").value;
+            const key = keyText.split("~");
+            var safeCred = document.getElementById("inputSafeCred").value;
+            var plainCred = '';
+            for (const char of safeCred) {
+                var safeIndex = key.indexOf(":" + char);
+                var plainChar = ''
+                if (safeIndex <= 0)
+                    plainChar = char;
+                else
+                    plainChar = key[safeIndex - 1].replace('!', '');
+                plainCred = plainCred + plainChar;
+            };
+            document.getElementById("inputplainCred").value = plainCred;
+        };
+    </script>
+</body>
+</html>
