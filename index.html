@@ -7,35 +7,38 @@
     <input type="hidden" disabled id="key" value="!A~:N~!B~:A~!C~:O~!D~:B~!E~:P~!F~:C~!G~:Q~!H~:D~!I~:R~!J~:E~!K~:S~!L~:F~!M~:T~!N~:G~!O~:U~!P~:H~!Q~:V~!R~:I~!S~:W~!T~:J~!U~:X~!V~:K~!W~:Y~!X~:L~!Y~:Z~!Z~:M~!a~:z~!b~:m~!c~:y~!d~:l~!e~:x~!f~:k~!g~:w~!h~:j~!i~:v~!j~:i~!k~:u~!l~:h~!m~:t~!n~:g~!o~:s~!p~:f~!q~:r~!r~:e~!s~:q~!t~:d~!u~:p~!v~:c~!w~:o~!x~:b~!y~:n~!@~:-~!#~:_~!$~:=~!.~:'~!0~:5~!1~:6~!2~:7~!3~:8~!4~:9~!5~:0~!6~:1~!7~:2~!8~:3~!9~:4" />
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12">
+            <div class="d-flex justify-content-center">
                 <h4 class="center">Protect My Credential</h4>
             </div>
-            </div>
         </div>
+    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-4  margin-top-sm">
-                <input type="text" id="txtplainCred" class="form-control" />
-            </div>
-            <div class="col-sm-12 col-md-4  margin-top">
-                <input type="text" disabled id="txtSafeCred" class="form-control" />
-            </div>
-            <div class="col-sm-12 col-md-4  margin-top">
-                <input type="button" onClick="encClick()" value="Encrypt" class="btn btn-primary" />
+        <div class="card p-1">
+            <div class="row">
+                <div class="col-md-12 col-lg-4 mt-1">
+                    <input type="text" id="txtplainCred" class="form-control" />
+                </div>
+                <div class="col-md-12 col-lg-4 mt-1">
+                    <input type="text" disabled id="txtSafeCred" class="form-control" />
+                </div>
+                <div class="col-md-12 col-lg-4 mt-1">
+                    <input type="button" onClick="encClick()" value="Encrypt" class="form-control btn btn-primary" />
+                </div>
             </div>
         </div>
-        <div class="row">
-            <p>
-                <div class="col-sm-4">
+
+        <div class="card p-1 mt-1">
+            <div class="row">
+                <div class="col-md-12 col-lg-4 mt-1">
                     <input type="text" id="inputSafeCred" class="form-control" />
                 </div>
-                <div class="col-sm-4">
+                <div class="col-md-12 col-lg-4 mt-1">
                     <input type="text" disabled id="inputplainCred" class="form-control" />
                 </div>
-                <div class="col-sm-4">
-                    <input type="button" onClick="decClick()" value="Decrypt" class="btn btn-danger" />
+                <div class="col-md-12 col-lg-4 mt-1">
+                    <input type="button" onClick="decClick()" value="Decrypt" class="form-control btn btn-danger" />
                 </div>
-            </p>
+            </div>
         </div>
     </div>
     <script>
