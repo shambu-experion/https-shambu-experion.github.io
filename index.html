@@ -1,53 +1,70 @@
 <html>
 <head>
     <title>En/De Crypt Credential</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
     <input type="hidden" disabled id="key" value="!A~:N~!B~:A~!C~:O~!D~:B~!E~:P~!F~:C~!G~:Q~!H~:D~!I~:R~!J~:E~!K~:S~!L~:F~!M~:T~!N~:G~!O~:U~!P~:H~!Q~:V~!R~:I~!S~:W~!T~:J~!U~:X~!V~:K~!W~:Y~!X~:L~!Y~:Z~!Z~:M~!a~:z~!b~:m~!c~:y~!d~:l~!e~:x~!f~:k~!g~:w~!h~:j~!i~:v~!j~:i~!k~:u~!l~:h~!m~:t~!n~:g~!o~:s~!p~:f~!q~:r~!r~:e~!s~:q~!t~:d~!u~:p~!v~:c~!w~:o~!x~:b~!y~:n~!@~:-~!#~:_~!$~:=~!.~:'~!0~:5~!1~:6~!2~:7~!3~:8~!4~:9~!5~:0~!6~:1~!7~:2~!8~:3~!9~:4" />
-    <p>
-        <input type="text" id="txtplainCred" />
-        <input type="text" disabled id="txtSafeCred" />
-        <input type="button" onClick="encClick()" value="Encrypt" />
-    </p>
-    <p>
-        <input type="text" id="inputSafeCred" />
-        <input type="text" disabled id="inputplainCred" />
-        <input type="button" onClick="decClick()" value="Decrypt" />
-    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <h4 class="center">Protect My Credential</h4>
+            </div>
+            </div>
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4  margin-top-sm">
+                <input type="text" id="txtplainCred" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-4  margin-top">
+                <input type="text" disabled id="txtSafeCred" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-4  margin-top">
+                <input type="button" onClick="encClick()" value="Encrypt" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                <div class="col-sm-4">
+                    <input type="text" id="inputSafeCred" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" disabled id="inputplainCred" class="form-control" />
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" onClick="decClick()" value="Decrypt" class="btn btn-danger" />
+                </div>
+            </p>
+        </div>
+    </div>
     <script>
         function encClick() {
-            var keyText = document.getElementById("key").value;
-            const key = keyText.split("~");
             var plainCred = document.getElementById("txtplainCred").value;
-            var safeCred = '';
-            for (const char of plainCred) {
-                var plainIndex = key.indexOf("!" + char);
-                var safeChar = ''
-                if (plainIndex <= 0)
-                    safeChar = char;
-                else
-                    safeChar = key[plainIndex + 1].replace(':', '');
-                safeCred = safeCred + safeChar;
-            };
-            document.getElementById("txtSafeCred").value = safeCred;
+            document.getElementById("txtSafeCred").value = transform(plainCred, "!", 1, ':');
         };
 
         function decClick() {
+            var safeCred = document.getElementById("inputSafeCred").value;
+            document.getElementById("inputplainCred").value = transform(safeCred, ":", -1, '!');
+        };
+
+        function transform(text, identifierChar, nextIndex, removeChar) {
             var keyText = document.getElementById("key").value;
             const key = keyText.split("~");
-            var safeCred = document.getElementById("inputSafeCred").value;
-            var plainCred = '';
-            for (const char of safeCred) {
-                var safeIndex = key.indexOf(":" + char);
-                var plainChar = ''
+            var transformedText = '';
+            for (const char of text) {
+                var safeIndex = key.indexOf(identifierChar + char);
+                var nextChar = ''
                 if (safeIndex <= 0)
-                    plainChar = char;
+                    nextChar = char;
                 else
-                    plainChar = key[safeIndex - 1].replace('!', '');
-                plainCred = plainCred + plainChar;
+                    nextChar = key[safeIndex + nextIndex].replace(removeChar, '');
+                transformedText = transformedText + nextChar;
             };
-            document.getElementById("inputplainCred").value = plainCred;
-        };
+            return transformedText;
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
